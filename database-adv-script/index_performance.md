@@ -1,31 +1,28 @@
 # Index Performance
 
-**Without Index**
+## Query
+
 ```sql
-BEGIN;
+-- Before Indexing
+EXPLAIN ANALYZE
+SELECT * FROM users
+WHERE email = 'ernest.wambua@example.com';
 
-	DROP INDEX IF EXISTS "idx_user_email";
+-- Create Index
+CREATE INDEX idx_users_email ON users(email);
 
-	EXPLAIN ANALYZE
-	SELECT * FROM users
-	WHERE email = 'ernest.wambua@example.com';
-
-ROLLBACK;
+-- After Indexing
+EXPLAIN ANALYZE
+SELECT * FROM users
+WHERE email = 'ernest.wambua@example.com';
 ```
+
+## Performance Analysis
+
+**Without Index**
 
 ![without index](without_index.png)
 
-
 **With Index**
-
-```sql
-BEGIN;
-
-	EXPLAIN ANALYZE
-	SELECT * FROM users
-	WHERE email = 'ernest.wambua@example.com';
-
-ROLLBACK;
-```
 
 ![with index](with_index.png)
