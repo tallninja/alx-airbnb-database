@@ -1,3 +1,5 @@
+-- WHERE AND
+
 -- Initial Complex Query
 -- Retrieving bookings with user, property, and payment details
 SELECT 
