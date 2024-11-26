@@ -16,7 +16,7 @@ CREATE TYPE "payment_method" AS ENUM (
   'stripe'
 );
 
-CREATE TABLE "users" (
+CREATE TABLE IF NOT EXISTS "users" (
   "user_id" uuid PRIMARY KEY,
   "first_name" varchar NOT NULL,
   "last_name" varchar NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE "users" (
   "created_at" timestamp DEFAULT (now())
 );
 
-CREATE TABLE "properties" (
+CREATE TABLE IF NOT EXISTS "properties" (
   "property_id" uuid PRIMARY KEY,
   "host_id" uuid,
   "name" varchar NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE "properties" (
   "updated_at" timestamp
 );
 
-CREATE TABLE "locations" (
+CREATE TABLE IF NOT EXISTS "locations" (
   "location_id" uuid PRIMARY KEY,
   "country" varchar NOT NULL,
   "state" varchar,
@@ -48,7 +48,7 @@ CREATE TABLE "locations" (
   "lng" decimal NOT NULL
 );
 
-CREATE TABLE "bookings" (
+CREATE TABLE IF NOT EXISTS "bookings" (
   "booking_id" uuid PRIMARY KEY,
   "property_id" uuid,
   "user_id" uuid,
@@ -59,7 +59,7 @@ CREATE TABLE "bookings" (
   "created_at" timestamp DEFAULT (now())
 );
 
-CREATE TABLE "payments" (
+CREATE TABLE IF NOT EXISTS "payments" (
   "payment_id" uuid PRIMARY KEY,
   "booking_id" uuid,
   "amount" decimal NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE "payments" (
   "payment_method" payment_method NOT NULL
 );
 
-CREATE TABLE "reviews" (
+CREATE TABLE IF NOT EXISTS "reviews" (
   "review_id" uuid PRIMARY KEY,
   "property_id" uuid,
   "user_id" uuid,
@@ -76,7 +76,7 @@ CREATE TABLE "reviews" (
   "created_at" timestamp DEFAULT (now())
 );
 
-CREATE TABLE "messages" (
+CREATE TABLE IF NOT EXISTS "messages" (
   "message_id" uuid PRIMARY KEY,
   "sender_id" uuid,
   "recipient_id" uuid,
@@ -84,11 +84,11 @@ CREATE TABLE "messages" (
   "sent_at" timestamp DEFAULT (now())
 );
 
-CREATE INDEX ON "users" ("email");
+CREATE INDEX IF NOT EXISTS "user_email" ON "users" ("email");
 
-CREATE INDEX ON "bookings" ("property_id");
+CREATE INDEX IF NOT EXISTS "bookings_property_id" ON "bookings" ("property_id");
 
-CREATE INDEX ON "payments" ("booking_id");
+CREATE INDEX IF NOT EXISTS "payments_booking_id" ON "payments" ("booking_id");
 
 COMMENT ON COLUMN "properties"."updated_at" IS 'On Update set `now()';
 
