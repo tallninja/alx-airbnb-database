@@ -1,19 +1,13 @@
--- Without index
-BEGIN;
+-- Before adding index
+EXPLAIN ANALYZE 
+SELECT * FROM bookings 
+WHERE email = 'ernest.wambua@example.com';
 
-	DROP INDEX IF EXISTS "idx_user_email";
+-- Users table: Index on email (likely used in login/search)
+CREATE INDEX idx_users_email ON users(email);
 
-	EXPLAIN ANALYZE
-	SELECT * FROM users
-	WHERE email = 'ernest.wambua@example.com';
+-- After adding index
+EXPLAIN ANALYZE 
+SELECT * FROM bookings 
+WHERE email = 'ernest.wambua@example.com';
 
-ROLLBACK;
-
--- With index
-BEGIN;
-
-	EXPLAIN ANALYZE
-	SELECT * FROM users
-	WHERE email = 'ernest.wambua@example.com';
-
-ROLLBACK;
