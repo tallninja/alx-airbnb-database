@@ -84,11 +84,18 @@ CREATE TABLE IF NOT EXISTS "messages" (
   "sent_at" timestamp DEFAULT (now())
 );
 
-CREATE INDEX IF NOT EXISTS "user_email" ON "users" ("email");
+CREATE INDEX IF NOT EXISTS "idx_user_email" ON "users" ("email");
 
-CREATE INDEX IF NOT EXISTS "bookings_property_id" ON "bookings" ("property_id");
+CREATE INDEX IF NOT EXISTS "idx_property_location" ON "properties" ("location");
 
-CREATE INDEX IF NOT EXISTS "payments_booking_id" ON "payments" ("booking_id");
+CREATE INDEX IF NOT EXISTS "idx_property_host" ON "properties" ("host_id");
+
+CREATE INDEX IF NOT EXISTS "idx_booking_guest" ON "bookings" ("user_id");
+
+CREATE INDEX IF NOT EXISTS "idx_booking_property" ON "bookings" ("property_id");
+
+CREATE INDEX IF NOT EXISTS "idx_payment_booking" ON "payments" ("booking_id");
+
 
 COMMENT ON COLUMN "properties"."updated_at" IS 'On Update set `now()';
 

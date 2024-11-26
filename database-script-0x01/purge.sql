@@ -1,8 +1,14 @@
-DROP INDEX IF EXISTS "user_email";
+DROP INDEX IF EXISTS "idx_user_email";
 
-DROP INDEX IF EXISTS "bookings_property_id";
+DROP INDEX IF EXISTS "idx_property_location";
 
-DROP INDEX IF EXISTS "payments_booking_id";
+DROP INDEX IF EXISTS "idx_property_host";
+
+DROP INDEX IF EXISTS "idx_booking_guest";
+
+DROP INDEX IF EXISTS "idx_booking_property";
+
+DROP INDEX IF EXISTS "idx_payment_booking";
 
 DROP TABLE IF EXISTS "reviews";
 
